@@ -15,7 +15,7 @@ excel = openpyxl.load_workbook('../excel_demo/excel_data.xlsx')
 sheets = excel.sheetnames
 for sheet1 in sheets:
     sheet = excel[sheet1]
-    logger.info("----------正在执行第{}页的测试用例----------".format(sheet1))
+    logger.info("------------正在执行{}页测试用例------------".format(sheet1))
     # print("----------{}----------".format(sheet1))
     for values in sheet.values:
         params = {}
@@ -31,9 +31,8 @@ for sheet1 in sheets:
                     wd = WebDemo(params['txt'])
                 else:
                     getattr(wd,values[1])(**params)
-                logger.info("正在执行:第{}步-----执行内容为:{}".format(values[0],values[5],values[4]))
+                logger.info("正在执行:第{}步-----执行内容为:{}-{}".format(values[0],values[5],values[4]))
                 # print("正在执行:{}-----执行内容为:{}".format(values[5],values[4]))
-            else:
-                pass
         except Exception as error:
             logger.error("执行错误：{}",format(error))
+    logger.info("------------执行{}测试用例成功------------".format(sheet1))

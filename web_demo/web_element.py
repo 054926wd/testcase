@@ -10,7 +10,6 @@ from loguru import logger
 from datetime import datetime
 from selenium import webdriver
 
-
 def browser(type_):
     try:
         driver = getattr(webdriver,type_)()
@@ -62,10 +61,14 @@ class WebDemo:
         if not os.path.exists(screenshot_today_dir):
             os.mkdir(screenshot_today_dir)  # 不存在则创建
 
-        nowtime = datetime.now().strftime('YYYY-MM-DD HH:mm:ss')  # 时间戳
+        nowtime = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')  # 时间戳
         filename = nowtime + filename + ".png"  # 拼接文件名 时间戳+文件名+.png
         filepath = os.path.join(screenshot_today_dir, filename)
-        self.driver.get_screenshot_as_file(filepath) # 截图，文件名=filename+时间戳
+        try:
+            self.driver.get_screenshot_as_file(filepath) # 截图，文件名=filename+时间戳
+            logger.info("截图成功-----{}".format(filepath))
+        except Exception as error:
+            logger.error("截图失败")
 
 
     # 退出浏览器
