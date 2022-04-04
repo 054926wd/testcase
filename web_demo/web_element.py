@@ -57,10 +57,14 @@ class WebDemo:
         ActionChains(self.driver).move_to_element(mouseover).perform()
 
     #屏幕滚动
+    '''
+    传入元素位置，将页面滑动至该元素位置
+    true:将该元素显示在顶部
+    false:将该元素显示在底部
+    '''
     def scroll(self,**kwargs):
-        js = "var q=document.documentElement.scrollTop=10000"
-        self.driver.execute_script(js)
-
+        roll = self.locator(kwargs['name'],kwargs['value'])
+        self.driver.execute_script('aguments[0].scrollIntoview(false)', roll)
 
     #屏幕截图
     def screenshot(self,filename='屏幕截图',**kwargs):
@@ -82,6 +86,13 @@ class WebDemo:
         except Exception as error:
             logger.error("截图失败-----{}".format(error))
 
+    #页面刷新
+    def refresh(self,**kwargs):
+        self.driver.refresh()
+
+    #返回上一页
+    def back(self,**kwargs):
+        self.driver.back()
 
     # 退出浏览器
     def quit(self,**kwargs):
