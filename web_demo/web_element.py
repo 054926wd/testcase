@@ -61,7 +61,7 @@ class WebDemo:
         if not os.path.exists(screenshot_today_dir):
             os.mkdir(screenshot_today_dir)  # 不存在则创建
 
-        nowtime = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')  # 时间戳
+        nowtime = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')  # 时间戳
         filename = nowtime + filename + ".png"  # 拼接文件名 时间戳+文件名+.png
         filepath = os.path.join(screenshot_today_dir, filename)
         try:
