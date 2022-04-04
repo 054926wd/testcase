@@ -3,15 +3,19 @@
 # @Time : 2022/3/24 22:32
 # @Author  : 多情的小怪兽
 # @File    : web_element.py
-from selenium import webdriver
-from time import sleep
 
-#
+import os
+from time import sleep
+from loguru import logger
+from datetime import datetime
+from selenium import webdriver
+
+
 def browser(type_):
     try:
         driver = getattr(webdriver,type_)()
     except:
-        print("出现异常启动默认浏览器Chrome")
+        logger.warning("出现异常,启动默认浏览器Chrome")
         driver = webdriver.Chrome()
     return driver
 
@@ -41,6 +45,28 @@ class WebDemo:
     # 元素点击
     def click(self, **kwargs):
         self.locator(kwargs['name'],kwargs['value']).click()
+
+    #切换至新打开的标签页
+    def table(self):
+        handles = self.driver.window_handles
+        self.driver.switch_to.window(handles[1])
+
+    #屏幕截图
+    def screenshot(self,filename='屏幕截图',**kwargs):
+        screenshot_dir = '../picture'  # 当前目录下的screenshot文件夹；或设置其他目录
+        if not os.path.exists(screenshot_dir):  # 不存在则创建该目录
+            os.mkdir(screenshot_dir)
+
+        nowdate = datetime.now().strftime('%Y%m%d')  # 当日日期
+        screenshot_today_dir = os.path.join(screenshot_dir, nowdate)  # 当前日期文件夹
+        if not os.path.exists(screenshot_today_dir):
+            os.mkdir(screenshot_today_dir)  # 不存在则创建
+
+        nowtime = datetime.now().strftime('YYYY-MM-DD HH:mm:ss')  # 时间戳
+        filename = nowtime + filename + ".png"  # 拼接文件名 时间戳+文件名+.png
+        filepath = os.path.join(screenshot_today_dir, filename)
+        self.driver.get_screenshot_as_file(filepath) # 截图，文件名=filename+时间戳
+
 
     # 退出浏览器
     def quit(self,**kwargs):
