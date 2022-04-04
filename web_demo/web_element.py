@@ -80,7 +80,7 @@ class WebDemo:
             self.driver.get_screenshot_as_file(filepath) # 截图，文件名=filename+时间戳
             logger.info("截图成功-----{}".format(filepath))
         except Exception as error:
-            logger.error("截图失败")
+            logger.error("截图失败-----{}".format(error))
 
 
     # 退出浏览器
