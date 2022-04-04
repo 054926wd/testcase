@@ -16,3 +16,10 @@ refresh：该方法为页面刷新，直接调用即可，不需要传值
 back：该方法为返回上一页，直接调用即可，不需要传值
 quit：该方法为关闭浏览器，直接调用即可，不需要传值
 wait：该方法为强制等待，该需要传入等待时间
+
+
+
+
+上传git：
+    git branch -M main
+    git push -u origin main
