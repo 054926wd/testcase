@@ -9,6 +9,7 @@ from time import sleep
 from loguru import logger
 from datetime import datetime
 from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
 
 def browser(type_):
     try:
@@ -49,6 +50,17 @@ class WebDemo:
     def table(self):
         handles = self.driver.window_handles
         self.driver.switch_to.window(handles[1])
+
+    #鼠标悬停
+    def mouse(self,**kwargs):
+        mouseover = self.locator(kwargs['name'],kwargs['value'])
+        ActionChains(self.driver).move_to_element(mouseover).perform()
+
+    #屏幕滚动
+    def scroll(self,**kwargs):
+        js = "var q=document.documentElement.scrollTop=10000"
+        self.driver.execute_script(js)
+
 
     #屏幕截图
     def screenshot(self,filename='屏幕截图',**kwargs):

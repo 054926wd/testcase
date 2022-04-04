@@ -15,7 +15,7 @@ excel = openpyxl.load_workbook('../excel_demo/excel_data.xlsx')
 sheets = excel.sheetnames
 for sheet1 in sheets:
     sheet = excel[sheet1]
-    logger.info("------------正在执行{}页测试用例------------".format(sheet1))
+    logger.info("------------正在执行{}的测试用例------------".format(sheet1))
     # print("----------{}----------".format(sheet1))
     for values in sheet.values:
         params = {}
