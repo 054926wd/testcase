@@ -7,7 +7,7 @@ import openpyxl
 from web_demo.web_element import WebDemo
 from loguru import logger
 
-logger.add('../target/{time}.log',format="{time:YYYY-MM-DD HH:mm:ss} {name} {level} {message}",level="INFO",retention="10 days",encoding='utf-8')
+logger.add('../target/{time:YYYYMMDD}/{time:YYYY-MM-DD_HH-mm-ss}.log',format="{time:YYYY-MM-DD HH:mm:ss} {name} {file} {level} {message}",level="INFO",retention="10 days",encoding='utf-8')
 
 # 打开excel文件
 excel = openpyxl.load_workbook('../excel_demo/excel_data.xlsx')
@@ -34,5 +34,5 @@ for sheet1 in sheets:
                 logger.info("正在执行:第{}步-----执行内容为:{}-{}".format(values[0],values[5],values[4]))
                 # print("正在执行:{}-----执行内容为:{}".format(values[5],values[4]))
         except Exception as error:
-            logger.error("执行错误：{}",format(error))
+            logger.error("第{}步执行错误：{}".format(values[0],error))
     logger.info("------------执行{}测试用例成功------------".format(sheet1))
